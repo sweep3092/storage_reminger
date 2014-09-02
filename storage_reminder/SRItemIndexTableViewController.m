@@ -34,6 +34,8 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     _items = [self loadAllData];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.15 green:0.13 blue:0.11 alpha:1.0];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:0.83 green:0.71 blue:0.56 alpha:1.0]};
 }
 
 - (void)didReceiveMemoryWarning

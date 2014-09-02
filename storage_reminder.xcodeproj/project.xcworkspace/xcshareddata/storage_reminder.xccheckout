@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FF556511-5B5B-42D9-AFC4-55F23FCEF151</string>
+	<key>IDESourceControlProjectName</key>
+	<string>storage_reminder</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9E0AC462-E19D-4150-9904-A0FF49FAB4CF</key>
+		<string>ssh://git.youk.info/sweep3092/storage_reminder.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>storage_reminder.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9E0AC462-E19D-4150-9904-A0FF49FAB4CF</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://git.youk.info/sweep3092/storage_reminder.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9E0AC462-E19D-4150-9904-A0FF49FAB4CF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9E0AC462-E19D-4150-9904-A0FF49FAB4CF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>storage_reminder</string>
+		</dict>
+	</array>
+</dict>
+</plist>
