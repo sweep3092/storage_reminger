@@ -22,6 +22,10 @@
 		8CD0F00119B4774E00A9F4A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CD0EFE019B4774E00A9F4A5 /* UIKit.framework */; };
 		8CD0F00919B4774E00A9F4A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8CD0F00719B4774E00A9F4A5 /* InfoPlist.strings */; };
 		8CD0F00B19B4774E00A9F4A5 /* storage_reminderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD0F00A19B4774E00A9F4A5 /* storage_reminderTests.m */; };
+		8CD0F01919B47A1700A9F4A5 /* SRItemIndexTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD0F01819B47A1700A9F4A5 /* SRItemIndexTableViewController.m */; };
+		8CD0F01F19B4980600A9F4A5 /* SRAddItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CD0F01E19B4980600A9F4A5 /* SRAddItemTableViewController.m */; };
+		8CDD071619B4B267001F4851 /* SRItems.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8CDD071419B4B267001F4851 /* SRItems.xcdatamodeld */; };
+		8CDD071919B4B71F001F4851 /* Items.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CDD071819B4B71F001F4851 /* Items.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,13 @@
 		8CD0F00619B4774E00A9F4A5 /* storage_reminderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "storage_reminderTests-Info.plist"; sourceTree = "<group>"; };
 		8CD0F00819B4774E00A9F4A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8CD0F00A19B4774E00A9F4A5 /* storage_reminderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = storage_reminderTests.m; sourceTree = "<group>"; };
+		8CD0F01719B47A1700A9F4A5 /* SRItemIndexTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRItemIndexTableViewController.h; sourceTree = "<group>"; };
+		8CD0F01819B47A1700A9F4A5 /* SRItemIndexTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRItemIndexTableViewController.m; sourceTree = "<group>"; };
+		8CD0F01D19B4980600A9F4A5 /* SRAddItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRAddItemTableViewController.h; sourceTree = "<group>"; };
+		8CD0F01E19B4980600A9F4A5 /* SRAddItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRAddItemTableViewController.m; sourceTree = "<group>"; };
+		8CDD071519B4B267001F4851 /* SRItems.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SRItems.xcdatamodel; sourceTree = "<group>"; };
+		8CDD071719B4B71F001F4851 /* Items.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Items.h; sourceTree = "<group>"; };
+		8CDD071819B4B71F001F4851 /* Items.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Items.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,11 +127,16 @@
 			children = (
 				8CD0EFEB19B4774E00A9F4A5 /* SRAppDelegate.h */,
 				8CD0EFEC19B4774E00A9F4A5 /* SRAppDelegate.m */,
-				8CD0EFEE19B4774E00A9F4A5 /* Main_iPhone.storyboard */,
-				8CD0EFF119B4774E00A9F4A5 /* Main_iPad.storyboard */,
 				8CD0EFF419B4774E00A9F4A5 /* SRViewController.h */,
 				8CD0EFF519B4774E00A9F4A5 /* SRViewController.m */,
+				8CD0EFEE19B4774E00A9F4A5 /* Main_iPhone.storyboard */,
+				8CD0EFF119B4774E00A9F4A5 /* Main_iPad.storyboard */,
+				8CD0F01719B47A1700A9F4A5 /* SRItemIndexTableViewController.h */,
+				8CD0F01819B47A1700A9F4A5 /* SRItemIndexTableViewController.m */,
+				8CD0F01D19B4980600A9F4A5 /* SRAddItemTableViewController.h */,
+				8CD0F01E19B4980600A9F4A5 /* SRAddItemTableViewController.m */,
 				8CD0EFF719B4774E00A9F4A5 /* Images.xcassets */,
+				8CDD071A19B4B72D001F4851 /* CoreData */,
 				8CD0EFE319B4774E00A9F4A5 /* Supporting Files */,
 			);
 			path = storage_reminder;
@@ -153,6 +169,16 @@
 				8CD0F00719B4774E00A9F4A5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8CDD071A19B4B72D001F4851 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8CDD071419B4B267001F4851 /* SRItems.xcdatamodeld */,
+				8CDD071719B4B71F001F4851 /* Items.h */,
+				8CDD071819B4B71F001F4851 /* Items.m */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +229,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = youk;
 				TargetAttributes = {
+					8CD0EFD819B4774E00A9F4A5 = {
+						DevelopmentTeam = 9S7HKX3S5M;
+					};
 					8CD0EFFC19B4774E00A9F4A5 = {
 						TestTargetID = 8CD0EFD819B4774E00A9F4A5;
 					};
@@ -254,8 +283,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CD0F01F19B4980600A9F4A5 /* SRAddItemTableViewController.m in Sources */,
+				8CD0F01919B47A1700A9F4A5 /* SRItemIndexTableViewController.m in Sources */,
 				8CD0EFE919B4774E00A9F4A5 /* main.m in Sources */,
+				8CDD071619B4B267001F4851 /* SRItems.xcdatamodeld in Sources */,
 				8CD0EFF619B4774E00A9F4A5 /* SRViewController.m in Sources */,
+				8CDD071919B4B71F001F4851 /* Items.m in Sources */,
 				8CD0EFED19B4774E00A9F4A5 /* SRAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +424,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "storage_reminder/storage_reminder-Prefix.pch";
 				INFOPLIST_FILE = "storage_reminder/storage_reminder-Info.plist";
@@ -404,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "storage_reminder/storage_reminder-Prefix.pch";
 				INFOPLIST_FILE = "storage_reminder/storage_reminder-Info.plist";
@@ -471,6 +506,7 @@
 				8CD0F01019B4774E00A9F4A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CD0F01119B4774E00A9F4A5 /* Build configuration list for PBXNativeTarget "storage_reminderTests" */ = {
 			isa = XCConfigurationList;
@@ -479,8 +515,22 @@
 				8CD0F01319B4774E00A9F4A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8CDD071419B4B267001F4851 /* SRItems.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8CDD071519B4B267001F4851 /* SRItems.xcdatamodel */,
+			);
+			currentVersion = 8CDD071519B4B267001F4851 /* SRItems.xcdatamodel */;
+			path = SRItems.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8CD0EFD119B4774E00A9F4A5 /* Project object */;
 }
