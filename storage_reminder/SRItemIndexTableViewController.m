@@ -163,7 +163,7 @@
                                                                        error:&error];
     
     if ( [fetchResults count] > 0 ) {
-        for (Items *item in fetchResults) {
+        for ( Items *item in fetchResults ) {
             NSDictionary *dictionary_item = @{ @"objectId": [item.objectID URIRepresentation], @"name": item.name, @"place": item.place };
             [items addObject:dictionary_item];
         }
@@ -175,7 +175,7 @@
     NSFetchRequest *deleteRequest = [[NSFetchRequest alloc] init];
     [deleteRequest setEntity:[NSEntityDescription entityForName:ENTITY_NAME
                                          inManagedObjectContext:[self managedObjectContext]]];
-    [deleteRequest setIncludesPropertyValues:NO]; // only NSManagedObjectID
+    [deleteRequest setIncludesPropertyValues:NO]; // find only NSManagedObjectID
     
     NSError *error = nil;
     
@@ -194,7 +194,7 @@
     
     [[self managedObjectContext] save:&saveError];
     
-    [self itemAdded];
+    [self refreshTableView];
 }
 
 
@@ -208,10 +208,13 @@
 
 
 - (void)itemAdded {
+    [self refreshTableView];
+}
+
+- (void)refreshTableView {
     _items = [self loadAllData];
     [self.tableView reloadData];
 }
-
 
 #pragma mark - Navigation
 
