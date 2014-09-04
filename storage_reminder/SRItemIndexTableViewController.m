@@ -36,6 +36,12 @@
     _items = [self loadAllData];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.15 green:0.13 blue:0.11 alpha:1.0];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:0.83 green:0.71 blue:0.56 alpha:1.0]};
+    
+    _searchBar.delegate = self;
+    self.searchDisplayController.delegate = self;
+    self.searchDisplayController.searchResultsTableView.rowHeight = self.tableView.rowHeight;
+    _searchedItems = [[NSMutableArray alloc] init];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,6 +49,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
 
 #pragma mark - Table view data source
 
@@ -55,15 +65,27 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [_searchedItems count];
+    }
+    
     return [_items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"items"
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"items"
                                                             forIndexPath:indexPath];
-    cell.textLabel.text = [[_items objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.detailTextLabel.text = [[_items objectAtIndex:indexPath.row] objectForKey:@"place"];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        cell.textLabel.text = [[_searchedItems objectAtIndex:indexPath.row] objectForKey:@"name"];
+        cell.detailTextLabel.text = [[_searchedItems objectAtIndex:indexPath.row] objectForKey:@"place"];
+    }
+    else {
+        cell.textLabel.text = [[_items objectAtIndex:indexPath.row] objectForKey:@"name"];
+        cell.detailTextLabel.text = [[_items objectAtIndex:indexPath.row] objectForKey:@"place"];
+    }
+    
     return cell;
 }
 
@@ -77,34 +99,43 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSURL *objectIdURI;
+    
     switch (editingStyle) {
         case UITableViewCellEditingStyleDelete:
-            [self deleteDataWithObjectIdURI:[[_items objectAtIndex:indexPath.row] objectForKey:@"objectId"]];
+            if (tableView == self.searchDisplayController.searchResultsTableView) {
+                objectIdURI = [[_searchedItems objectAtIndex:indexPath.row] objectForKey:@"objectId"];
+            }
+            else {
+                objectIdURI = [[_items objectAtIndex:indexPath.row] objectForKey:@"objectId"];
+            }
             break;
         
         default:
             break;
     }
+    
+    // CoreDataから削除
+    [self deleteDataWithObjectIdURI:objectIdURI];
+    
+    // とりあえず検索結果からは削除しておく
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"%@", _searchedItems);
+        [_searchedItems removeObjectAtIndex:indexPath.row];
+        [self.searchDisplayController.searchResultsTableView reloadData];
+    }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
+#pragma mark - searchDisplayController
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self filterContainsWithSearchText:searchString];
     return YES;
 }
-*/
 
 
 
+#pragma mark - Core Data
 - (NSManagedObjectModel *)managedObjectModel
 {
     if (_managedObjectModel != nil) {
@@ -149,7 +180,18 @@
     
     return _managedObjectContext;
 }
+// iPhoneのドキュメントディレクトリのパスを取得する
+- (NSURL *)applicationDocumentsDirectory
+{
+    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    return url;
+}
 
+
+
+
+#pragma mark - self-defined
+/* CoreDataからすべてのデータを取得して返す */
 - (NSMutableArray *)loadAllData {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:ENTITY_NAME
@@ -171,6 +213,7 @@
     return items;
 }
 
+/* CoreDataのObjectIdに一致する物を削除しTableViewを更新 */
 - (void)deleteDataWithObjectIdURI:(NSURL *)objectIdURI {
     NSFetchRequest *deleteRequest = [[NSFetchRequest alloc] init];
     [deleteRequest setEntity:[NSEntityDescription entityForName:ENTITY_NAME
@@ -197,27 +240,31 @@
     [self refreshTableView];
 }
 
-
-- (NSURL *)applicationDocumentsDirectory
-{
-    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    return url;
-}
-
-
-
-
-- (void)itemAdded {
-    [self refreshTableView];
-}
-
+// CoreDataを読み直してTableViewを更新
 - (void)refreshTableView {
     _items = [self loadAllData];
     [self.tableView reloadData];
 }
 
-#pragma mark - Navigation
+- (void)filterContainsWithSearchText:(NSString *)searchText
+{
+    NSString *predicateFormat = [NSString stringWithFormat:@"SELF contains[c] '%@'", searchText];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat];
+    _searchedItems = [NSMutableArray arrayWithArray:[_items filteredArrayUsingPredicate:predicate]];
+}
 
+
+/*
+ デリゲートメソッド
+ AddItemViewController dismissviewcontrollerで呼び出される
+ */
+- (void)itemAdded {
+    [self refreshTableView];
+}
+
+
+
+#pragma mark - Navigation
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

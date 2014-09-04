@@ -12,9 +12,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="検索" id="QBR-in-2th">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="eVe-O8-dVX" id="mGw-l8-aBW"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="items" textLabel="p2g-jU-lec" detailTextLabel="w45-7L-6Xj" style="IBUITableViewCellStyleSubtitle" id="3XN-bE-XsJ">
-                                <rect key="frame" x="0.0" y="86" width="320" height="60"/>
+                                <rect key="frame" x="0.0" y="130" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3XN-bE-XsJ" id="255-Lj-BDx">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
@@ -52,8 +60,22 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="searchBar" destination="QBR-in-2th" id="P4o-o6-4Rm"/>
+                        <outlet property="searchDisplayController" destination="Rkr-4s-fa7" id="edf-tl-ACW"/>
+                        <outlet property="tableView" destination="mwp-Dd-ra2" id="OdY-YS-wmk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCS-0o-SQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Rkr-4s-fa7">
+                    <connections>
+                        <outlet property="delegate" destination="eVe-O8-dVX" id="bV0-Qz-RiL"/>
+                        <outlet property="searchBar" destination="QBR-in-2th" id="l2b-XN-ZBL"/>
+                        <outlet property="searchContentsController" destination="eVe-O8-dVX" id="Mxq-I8-Glh"/>
+                        <outlet property="searchResultsDataSource" destination="eVe-O8-dVX" id="qEs-GM-OGT"/>
+                        <outlet property="searchResultsDelegate" destination="eVe-O8-dVX" id="63U-hm-rVX"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="480" y="86"/>
         </scene>

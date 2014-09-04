@@ -10,11 +10,16 @@
 #import "Items.h"
 #import "SRAddItemTableViewController.h"
 
-@interface SRItemIndexTableViewController : UITableViewController <SRAddItemViewDelegate>
+@interface SRItemIndexTableViewController : UITableViewController <SRAddItemViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *items;
+
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSMutableArray *searchedItems;
 
 @property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSMutableArray *items;
 
 @end
