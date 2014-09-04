@@ -15,7 +15,7 @@
 
 @end
 
-@interface SRAddItemTableViewController : UITableViewController
+@interface SRAddItemTableViewController : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) id <SRAddItemViewDelegate> addItemViewDelegate;
 

@@ -34,7 +34,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.15 green:0.13 blue:0.11 alpha:1.0];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:0.83 green:0.71 blue:0.56 alpha:1.0]};    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:0.83 green:0.71 blue:0.56 alpha:1.0]};
+    
+    _nameTextField.delegate  = self;
+    _placeTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,29 +47,29 @@
 }
 
 
-
+#pragma mark - IBAction
 
 - (IBAction)cancelButtonPressed:(id)sender {
     [self closeModal];
 }
 
 - (IBAction)addButtonPressed:(id)sender {
-    NSString *name  = self.nameTextField.text;
-    NSString *place = self.placeTextField.text;
-    
-    if ([self addItemToCoreDataWithName:name place:place]) {
-        [self.addItemViewDelegate itemAdded];
-    };
-    
-    [self closeModal];
-}
-
-- (void)closeModal {
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
+    [self addItemAndCloseThisModal];
 }
 
 
+#pragma mark - Text Field Delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == _nameTextField) {
+        [_placeTextField becomeFirstResponder];
+    }
+    else if (textField == _placeTextField) {
+        [self addItemAndCloseThisModal];
+    }
+    return YES;
+}
+
+#pragma mark - self defined methods
 
 - (NSManagedObjectModel *)managedObjectModel
 {
@@ -115,6 +118,23 @@
 
 
 
+-
+(void)closeModal {
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
+}
+
+
+- (void)addItemAndCloseThisModal {
+    NSString *name  = self.nameTextField.text;
+    NSString *place = self.placeTextField.text;
+    
+    if ([self addItemToCoreDataWithName:name place:place]) {
+        [self.addItemViewDelegate itemAdded];
+    };
+    
+    [self closeModal];
+}
 
 
 - (bool)addItemToCoreDataWithName:(NSString *)name place:(NSString *)place {
