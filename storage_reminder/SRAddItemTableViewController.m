@@ -118,8 +118,7 @@
 
 
 
--
-(void)closeModal {
+- (void)closeModal {
     [self dismissViewControllerAnimated:YES
                              completion:nil];
 }
